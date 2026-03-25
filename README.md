@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/sonidev-creations/grape-cold-storage/master/assets/screenshot.png" width="700"/>
+<img src="https://raw.githubusercontent.com/sonidev-creations/grape-cold-storage/master/assets/screenshot.png.png" width="700"/>
 # 🍇 Smart Grape Cold Storage Monitoring System using IoT
 <br>
 
