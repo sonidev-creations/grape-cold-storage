@@ -1,0 +1,38 @@
+# 🔒 Environment variables (SECRET FILES)
+.env
+*.env
+backend/.env
+
+# 🔒 Firebase / API keys
+serviceAccountKey.json
+backend/serviceAccountKey.json
+
+# 🐍 Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 🐍 Virtual environment (VERY IMPORTANT)
+.venv/
+venv/
+env/
+
+# 📦 Installed packages (if any frontend tools used)
+node_modules/
+
+# 📄 Logs & temp files
+*.log
+*.tmp
+
+# 💻 OS generated files
+.DS_Store
+Thumbs.db
+
+# 🧪 VS Code / IDE settings (optional)
+.vscode/
+.idea/
+
+# 📦 Build / dist folders (if any)
+dist/
+build/

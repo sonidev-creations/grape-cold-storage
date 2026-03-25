@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍇 Grape Monitoring</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* GLOBAL FIX */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, #2d0b45, #12001a);
+    color: white;
+
+    /* ✅ FIXED */
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 25px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #c084fc;
+    text-shadow: 0 0 20px #8a2be2;
+}
+
+/* CENTER CONTAINER */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding-bottom: 50px;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: 40px;
+    text-align: center;
+    width: 380px;
+
+    box-shadow: 0 0 60px rgba(138,43,226,0.6);
+
+    animation: fadeIn 1.5s ease;
+}
+
+/* VALUE */
+.value {
+    font-size: 48px;
+    font-weight: bold;
+    color: #e0aaff;
+    text-shadow: 0 0 20px #8a2be2;
+    margin: 15px 0;
+}
+
+/* LABEL */
+.label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+/* STATUS */
+.status {
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(30px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">🍇 Grape Cold Storage Monitoring</div>
+
+<div class="container">
+    <div class="card">
+
+        <div class="value" id="temp">--</div>
+        <div class="label">🌡 Temperature (°C)</div>
+
+        <div class="value" id="humidity">--</div>
+        <div class="label">💧 Humidity (%)</div>
+
+        <div class="value" id="gas">--</div>
+        <div class="label">🧪 Gas Level</div>
+
+        <div class="status" id="status">
+            Waiting for live data...
+        </div>
+
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCI7BaNJD8Got6VqlHOvWoTPhIdGNKAO1U",
+    authDomain: "grape-storage.firebaseapp.com",
+    databaseURL: "https://grape-storage-default-rtdb.firebaseio.com",
+    projectId: "grape-storage",
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+db.ref("grape-data").on("value", (snapshot) => {
+
+    const data = snapshot.val();
+    console.log("🔥 Live Data:", data);
+
+    if (!data) {
+        document.getElementById("status").innerText = "❌ No data found in Firebase";
+        return;
+    }
+    document.getElementById("temp").innerText = data.temperature + " °C";
+    document.getElementById("humidity").innerText = data.humidity + " %";
+    document.getElementById("gas").innerText = data.gas;
+
+    let status = "✅ Normal Condition";
+
+    if (data.temperature > 30)
+        status = "🔴 High Temperature!";
+    else if (data.temperature > 25)
+        status = "🟡 Medium Temperature!";
+
+    if (data.humidity < 30)
+        status = "🔴 Low Humidity!";
+    else if (data.humidity > 90)
+        status = "🔴 High Humidity!";
+
+    document.getElementById("status").innerText = status;
+
+});
+
+</script>
+
+</body>
+</html>
