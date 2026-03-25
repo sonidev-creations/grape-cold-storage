@@ -1,3 +1,4 @@
+<img src="https://raw.githubusercontent.com/sonidev-creations/grape-cold-storage/main/assets/screenshot.png" width="700"/>
 # Grape Cold Storage Monitoring System
 
 ## Description
